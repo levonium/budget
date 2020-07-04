@@ -1,0 +1,12 @@
+@import "tailwindcss/base";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+
+.amount::before {
+  content: '€';
+  position: absolute;
+  left: 0;
+  padding-left: .25rem;
+}

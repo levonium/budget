@@ -1,0 +1,36 @@
+{
+  "income": {
+    "cash": [
+      {
+        "source": "cash",
+        "amount": 30
+      }
+    ],
+    "accounts": [
+      {
+        "source": "Sabadell",
+        "amount": 1042
+      },
+      {
+        "source": "ING",
+        "amount": 430
+      }
+    ],
+    "upcoming": [
+      {
+        "source": "DinoMatic",
+        "amount": 100
+      }
+    ]
+  },
+  "expenses": [
+    {
+      "source": "Rent",
+      "amount": 350
+    },
+    {
+      "source": "Office",
+      "amount": 150
+    }
+  ]
+}

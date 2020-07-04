@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Budget</title>
+	<link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
+	<link rel="stylesheet" href="app.css">
+</head>
+<body class="m-0 p-0 antialiased">
+	<div class="page my-8">
+		<div class="container mx-auto grid gap-8 grid-cols-3">
+
+			<div class="bg-teal-400 rounded shadow p-4">
+				<h2 class="text-3xl font-bold mb-8">Income</h2>
+
+				<div class="income-cash mb-8">
+					<h3 class="uppercase text-sm text-gray-800 font-bold mb-2 pl-2">Cash</h3>
+					<div id="income--cash"></div>
+				</div>
+
+				<div class="income-accounts mb-8">
+					<h3 class="uppercase text-sm text-gray-800 font-bold mb-2 pl-2">Accounts</h3>
+					<div id="income--accounts"></div>
+				</div>
+
+				<div class="income-upcoming mb-8">
+					<h3 class="uppercase text-sm text-gray-800 font-bold mb-2 pl-2">Upcoming</h3>
+					<div id="income--upcoming"></div>
+				</div>
+			</div>
+
+			<div class="bg-orange-400 rounded shadow p-4">
+				<h2 class="text-3xl font-bold mb-8">Expenses</h2>
+
+				<div class="expenses mb-8">
+					<h3 class="uppercase text-sm text-gray-800 font-bold mb-2 pl-2">All Expenses</h3>
+					<div id="expenses"></div>
+				</div>
+			</div>
+
+			<div class="bg-blue-400 rounded shadow p-4">
+				<h2 class="text-3xl font-bold mb-8">Totals</h2>
+
+				<div class="total-expenses mb-8">
+
+					<h3 class="uppercase text-sm text-gray-800 font-bold mb-2 pl-2">Expenses</h3>
+
+					<div id="total--expenses"></div>
+				</div>
+
+				<div class="total-income mb-8">
+
+					<h3 class="uppercase text-sm text-gray-800 font-bold mb-2 pl-2">Income</h3>
+
+					<div id="total--income"></div>
+				</div>
+
+				<div class="results mb-8">
+
+					<h3 class="uppercase text-sm text-gray-800 font-bold mb-2 pl-2">Results</h3>
+
+					<div id="result"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<button>Add New Income</button>
+	<script src="app.js"></script>
+</body>
+</html>
