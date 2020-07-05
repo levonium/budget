@@ -11,7 +11,7 @@
 	<div class="page my-8">
 		<div class="container mx-auto grid gap-8 grid-cols-3">
 
-			<div class="bg-teal-400 rounded shadow p-4">
+			<div class="relative overflow-hidden bg-teal-400 rounded shadow p-4">
 				<h2 class="text-3xl font-bold mb-8">Income</h2>
 
 				<div class="income-cash mb-8">
@@ -20,23 +20,77 @@
 				</div>
 
 				<div class="income-accounts mb-8">
-					<h3 class="uppercase text-sm text-gray-800 font-bold mb-2 pl-2">Accounts</h3>
+					<h3 class="uppercase text-sm text-gray-800 font-bold mb-2 pl-2">
+						Accounts
+						<button data-action="form" data-form="add" data-section="income" data-subsection="Accounts"
+							class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-2 rounded-full text-sm">+</button>
+					</h3>
 					<div id="income--accounts"></div>
 				</div>
 
 				<div class="income-upcoming mb-8">
-					<h3 class="uppercase text-sm text-gray-800 font-bold mb-2 pl-2">Upcoming</h3>
+					<h3 class="uppercase text-sm text-gray-800 font-bold mb-2 pl-2">
+						Upcoming
+						<button data-action="form" data-form="add" data-section="income" data-subsection="Upcoming"
+							class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-2 rounded-full text-sm">+</button>
+					</h3>
 					<div id="income--upcoming"></div>
 				</div>
+
+				<form id="income--form" class="absolute inset-0 w-full bg-red-200 flex items-center justify-center flex-col transform -translate-y-full transition ease-in-out duration-700">
+					<div class="mb-8">
+						<label for="source" class="block text-gray-700 text-sm font-bold mb-2">Source</label>
+						<input type="text" id="income--form--source" name="source" placeholder="source"
+							class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+					</div>
+
+					<div class="mb-8">
+						<label for="amount" class="block text-gray-700 text-sm font-bold mb-2">Amount</label>
+						<input type="number" id="income--form--amount" name="amount" placeholder="amount"
+							class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+					</div>
+
+					<input type="hidden" name="subsection" id="income--subsection">
+
+					<div class="mb-8">
+						<button data-section="income"
+							class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded focus:outline-none focus:shadow-outline">
+							Add Income</button>
+					</div>
+				</form>
 			</div>
 
-			<div class="bg-orange-400 rounded shadow p-4">
+			<div class="relative overflow-hidden bg-orange-400 rounded shadow p-4">
 				<h2 class="text-3xl font-bold mb-8">Expenses</h2>
 
 				<div class="expenses mb-8">
-					<h3 class="uppercase text-sm text-gray-800 font-bold mb-2 pl-2">All Expenses</h3>
+					<h3 class="uppercase text-sm text-gray-800 font-bold mb-2 pl-2">
+						All Expenses
+						<button data-action="form" data-form="add" data-section="expenses"
+							class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-2 rounded-full text-sm">+</button>
+					</h3>
 					<div id="expenses"></div>
 				</div>
+
+				<form id="expenses--form" class="absolute inset-0 w-full bg-red-200 flex items-center justify-center flex-col transform -translate-y-full transition ease-in-out duration-700">
+					<div class="mb-8">
+						<label for="source" class="block text-gray-700 text-sm font-bold mb-2">Source</label>
+						<input type="text" id="expenses--form--source" name="source" placeholder="source"
+							class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+					</div>
+
+					<div class="mb-8">
+						<label for="amount" class="block text-gray-700 text-sm font-bold mb-2">Amount</label>
+						<input type="number" id="expenses--form--amount" name="amount" placeholder="amount"
+							class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+					</div>
+
+					<div class="mb-8">
+						<button data-section="expenses"
+							class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded focus:outline-none focus:shadow-outline">
+							Add Expense</button>
+					</div>
+				</form>
 			</div>
 
 			<div class="bg-blue-400 rounded shadow p-4">
@@ -66,7 +120,7 @@
 		</div>
 	</div>
 
-	<button>Add New Income</button>
+	<button id="test">Add New Income</button>
 	<script src="app.js"></script>
 </body>
 </html>
