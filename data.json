@@ -2,35 +2,27 @@
   "income": {
     "cash": [
       {
-        "source": "cash",
-        "amount": 30
+        "source": "Cash",
+        "amount": 0
       }
     ],
     "accounts": [
       {
-        "source": "Sabadell",
-        "amount": 1042
-      },
-      {
-        "source": "ING",
-        "amount": 4300
+        "source": "Account",
+        "amount": 0
       }
     ],
     "upcoming": [
       {
-        "source": "DinoMatic",
-        "amount": 100
+        "source": "Source",
+        "amount": 0
       }
     ]
   },
   "expenses": [
     {
-      "source": "Rent",
-      "amount": 350
-    },
-    {
-      "source": "Office",
-      "amount": 400
+      "source": "Expense",
+      "amount": 0
     }
   ]
 }

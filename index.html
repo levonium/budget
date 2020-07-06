@@ -16,111 +16,113 @@
 
 				<div class="income-cash mb-8">
 					<h3 class="uppercase text-sm text-gray-800 font-bold mb-2 pl-2">Cash</h3>
-					<div id="income--cash"></div>
+					<div id="income--cash" data-section="income" data-subsection="Cash" data-addOnly="true"></div>
 				</div>
 
 				<div class="income-accounts mb-8">
 					<h3 class="uppercase text-sm text-gray-800 font-bold mb-2 pl-2">
 						Accounts
-						<button data-action="form" data-form="add" data-section="income" data-subsection="Accounts"
-							class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-2 rounded-full text-sm">+</button>
+						<button data-action="form" data-form="change" data-section="income" data-subsection="Accounts" data-addOnly="true"
+							aria-label="Add Income: Accounts"
+							class="hover:bg-gray-700 text-white font-bold px-1 rounded text-base">⊕</button>
 					</h3>
-					<div id="income--accounts"></div>
+					<div id="income--accounts" data-section="income" data-subsection="Accounts"></div>
 				</div>
 
 				<div class="income-upcoming mb-8">
 					<h3 class="uppercase text-sm text-gray-800 font-bold mb-2 pl-2">
 						Upcoming
-						<button data-action="form" data-form="add" data-section="income" data-subsection="Upcoming"
-							class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-2 rounded-full text-sm">+</button>
+						<button data-action="form" data-form="change" data-section="income" data-subsection="Upcoming" data-addOnly="true"
+							aria-label="Add Income: Upcoming"
+							class="hover:bg-gray-700 text-white font-bold px-1 rounded text-base">⊕</button>
 					</h3>
-					<div id="income--upcoming"></div>
+					<div id="income--upcoming" data-section="income" data-subsection="Upcoming"></div>
 				</div>
 
 				<form id="income--form" class="absolute inset-0 w-full bg-red-200 flex items-center justify-center flex-col transform -translate-y-full transition ease-in-out duration-700">
 					<div class="mb-8">
 						<label for="source" class="block text-gray-700 text-sm font-bold mb-2">Source</label>
-						<input type="text" id="income--form--source" name="source" placeholder="source"
+						<input type="text" id="income--form--source" name="source" placeholder="source" data-input="income--source"
 							class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
 					</div>
 
 					<div class="mb-8">
 						<label for="amount" class="block text-gray-700 text-sm font-bold mb-2">Amount</label>
-						<input type="number" id="income--form--amount" name="amount" placeholder="amount"
+						<input type="number" id="income--form--amount" name="amount" placeholder="amount" data-input="income--amount"
 							class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
 					</div>
 
 					<input type="hidden" name="subsection" id="income--subsection">
 
 					<div class="mb-8">
-						<button data-section="income"
-							class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded focus:outline-none focus:shadow-outline">
-							Add Income</button>
+						<button class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 w-12 rounded focus:outline-none focus:shadow-outline"
+							data-section="income" aria-label="Edit/Confirm">✓</button>
+						<button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 w-12 rounded focus:outline-none focus:shadow-outline"
+							data-section="income" aria-label="Remove">X</button>
+						<button class="bg-white hover:bg-gray-200 text-gray-800 font-bold py-1 px-2 m-1 absolute top-0 right-0 rounded focus:outline-none focus:shadow-outline"
+							data-action="close" aria-label="Close">ⓧ</button>
 					</div>
 				</form>
 			</div>
 
-			<div class="relative overflow-hidden bg-orange-400 rounded shadow p-4">
+			<div class="relative overflow-hidden bg-orange-400 rounded shadow p-4" data-column="expenses">
 				<h2 class="text-3xl font-bold mb-8">Expenses</h2>
 
 				<div class="expenses mb-8">
 					<h3 class="uppercase text-sm text-gray-800 font-bold mb-2 pl-2">
 						All Expenses
-						<button data-action="form" data-form="add" data-section="expenses"
-							class="bg-blue-500 hover:bg-blue-700 text-white font-bold px-2 rounded-full text-sm">+</button>
+						<button data-action="form" data-form="change" data-section="expenses" data-addOnly="true"
+							aria-label="Add New Expense"
+							class="hover:bg-gray-700 text-white font-bold px-1 rounded text-base">⊕</button>
 					</h3>
-					<div id="expenses"></div>
+					<div id="expenses" data-section="expenses"></div>
 				</div>
 
 				<form id="expenses--form" class="absolute inset-0 w-full bg-red-200 flex items-center justify-center flex-col transform -translate-y-full transition ease-in-out duration-700">
 					<div class="mb-8">
 						<label for="source" class="block text-gray-700 text-sm font-bold mb-2">Source</label>
-						<input type="text" id="expenses--form--source" name="source" placeholder="source"
+						<input type="text" id="expenses--form--source" name="source" placeholder="source" data-input="expenses--source"
 							class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
 					</div>
 
 					<div class="mb-8">
 						<label for="amount" class="block text-gray-700 text-sm font-bold mb-2">Amount</label>
-						<input type="number" id="expenses--form--amount" name="amount" placeholder="amount"
+						<input type="number" id="expenses--form--amount" name="amount" placeholder="amount" data-input="expenses--amount"
 							class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
 					</div>
 
 					<div class="mb-8">
-						<button data-section="expenses"
-							class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded focus:outline-none focus:shadow-outline">
-							Add Expense</button>
+						<button class="bg-green-500 hover:bg-green-700 text-white font-bold py-1 w-12 rounded focus:outline-none focus:shadow-outline"
+							data-section="expenses" aria-label="Edit/Confirm">✓</button>
+						<button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 w-12 rounded focus:outline-none focus:shadow-outline"
+							data-section="expenses" aria-label="Remove">X</button>
+						<button class="bg-white hover:bg-gray-200 text-gray-800 font-bold py-1 px-2 m-1 absolute top-0 right-0 rounded focus:outline-none focus:shadow-outline"
+							data-action="close" aria-label="Close">ⓧ</button>
 					</div>
 				</form>
 			</div>
 
-			<div class="bg-blue-400 rounded shadow p-4">
+			<div class="bg-blue-400 rounded shadow p-4" data-column="results">
 				<h2 class="text-3xl font-bold mb-8">Totals</h2>
 
 				<div class="total-expenses mb-8">
-
 					<h3 class="uppercase text-sm text-gray-800 font-bold mb-2 pl-2">Expenses</h3>
-
 					<div id="total--expenses"></div>
 				</div>
 
 				<div class="total-income mb-8">
-
 					<h3 class="uppercase text-sm text-gray-800 font-bold mb-2 pl-2">Income</h3>
-
 					<div id="total--income"></div>
 				</div>
 
 				<div class="results mb-8">
-
 					<h3 class="uppercase text-sm text-gray-800 font-bold mb-2 pl-2">Results</h3>
-
 					<div id="result"></div>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<button id="test">Add New Income</button>
 	<script src="app.js"></script>
 </body>
 </html>
