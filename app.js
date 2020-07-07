@@ -288,6 +288,26 @@ const Data = {
     }
 
     localStorage.setItem('budget', JSON.stringify(window.Budget))
+  },
+  import(str) {
+    // const textarea = document.createElement('textarea')
+    // document.body.appendChild(textarea)
+    // textarea.select()
+    // document.execCommand('paste')
+    // console.log(textarea.value)
+    // const budget = JSON.parse(textarea.value)
+    // document.body.removeChild(textarea)
+    // setBudget(budget)
+  },
+  export() {
+    const budget = getBudget()
+    const str = JSON.stringify(budget)
+    const textarea = document.createElement('textarea')
+    document.body.appendChild(textarea)
+    textarea.value = str
+    textarea.select()
+    document.execCommand('copy')
+    document.body.removeChild(textarea)
   }
 }
 
@@ -337,6 +357,15 @@ document.addEventListener('click', (e) => {
     if (button.dataset.action === 'close') {
       const form = button.closest('form')
       Form.state.hide(form)
+    }
+
+    if (button.dataset.action === 'import') {
+      const str = ''
+      Data.import(str)
+    }
+
+    if (button.dataset.action === 'export') {
+      Data.export()
     }
   }
 })
