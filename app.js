@@ -289,25 +289,75 @@ const Data = {
 
     localStorage.setItem('budget', JSON.stringify(window.Budget))
   },
-  import(str) {
-    // const textarea = document.createElement('textarea')
-    // document.body.appendChild(textarea)
-    // textarea.select()
-    // document.execCommand('paste')
-    // console.log(textarea.value)
-    // const budget = JSON.parse(textarea.value)
-    // document.body.removeChild(textarea)
-    // setBudget(budget)
+  import: {
+    prepare() {
+      const textarea = document.getElementById('clipboard')
+      textarea.classList.remove('hidden')
+      textarea.value = ''
+      textarea.focus()
+      textarea.placeholder = 'Paste your data here and click Import'
+      document.querySelector('[data-action="import"]').dataset.import = 'true'
+    },
+    do() {
+      const textarea = document.getElementById('clipboard')
+      textarea.classList.remove('border-red-400')
+
+      try {
+        const budget = this.validate(textarea.value)
+
+        setBudget(budget)
+
+        textarea.value = '✅ Data imported successfully.'
+        setTimeout(() => {
+          textarea.classList.add('hidden')
+          textarea.value = ''
+        }, 2000)
+      } catch (error) {
+        textarea.classList.add('border-red-400')
+        textarea.value = error
+        return
+      }
+      document.querySelector('[data-action="import"]').dataset.import = 'false'
+    },
+    validate(budget) {
+      if (!budget) {
+        throw '❌ Oops you need to paste it here to import.'
+      }
+
+      let data
+
+      try {
+        data = JSON.parse(budget)
+      } catch (error) {
+        throw '❌ Incorrect Format'
+      }
+
+      if (!data.hasOwnProperty('raw') ||
+        !data.hasOwnProperty('total') ||
+        !data.raw.hasOwnProperty('expenses') ||
+        !data.total.hasOwnProperty('income') ||
+        !data.total.hasOwnProperty('expenses') ||
+        !data.total.hasOwnProperty('income') ||
+        !data.total.hasOwnProperty('result')) {
+
+        throw '❌ Incorrect Format'
+      }
+
+      return data
+    }
   },
   export() {
     const budget = getBudget()
-    const str = JSON.stringify(budget)
-    const textarea = document.createElement('textarea')
-    document.body.appendChild(textarea)
-    textarea.value = str
+    const textarea = document.getElementById('clipboard')
+    textarea.value = JSON.stringify(budget)
     textarea.select()
     document.execCommand('copy')
-    document.body.removeChild(textarea)
+    textarea.value = '✅ Copied to clipboard!'
+    textarea.classList.remove('hidden', 'border-red-400')
+    setTimeout(() => {
+      textarea.classList.add('hidden')
+      textarea.value = ''
+    }, 2000)
   }
 }
 
@@ -360,8 +410,7 @@ document.addEventListener('click', (e) => {
     }
 
     if (button.dataset.action === 'import') {
-      const str = ''
-      Data.import(str)
+      button.dataset.import === 'true' ? Data.import.do() : Data.import.prepare()
     }
 
     if (button.dataset.action === 'export') {
