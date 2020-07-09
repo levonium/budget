@@ -1,11 +1,13 @@
 @import "tailwindcss/base";
-
 @import "tailwindcss/components";
-
 @import "tailwindcss/utilities";
 
+:root {
+  --currency: '€';
+}
+
 .amount::before {
-  content: '€';
+  content: var(--currency);
   position: absolute;
   left: 0;
   padding-left: .25rem;

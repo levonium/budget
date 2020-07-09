@@ -7,9 +7,9 @@
 	<link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
 	<link rel="stylesheet" href="app.css">
 </head>
-<body class="m-0 p-0 antialiased">
+<body class="m-0 p-0 antialiased w-full h-full bg-gray-100">
 	<div class="page my-8">
-		<div class="container mx-auto px-4 lg:px-0 grid gap-8 grid-cols-1 lg:grid-cols-3">
+		<div class="container mx-auto my-4 px-4 lg:px-0 grid gap-8 grid-cols-1 lg:grid-cols-3">
 
 			<div class="relative overflow-hidden bg-teal-400 rounded shadow p-4">
 				<h2 class="text-3xl font-bold mb-8">Income</h2>
@@ -39,15 +39,15 @@
 					<div id="income--upcoming" data-section="income" data-subsection="Upcoming"></div>
 				</div>
 
-				<form id="income--form" class="absolute inset-0 w-full bg-red-200 flex items-center justify-center flex-col transform -translate-y-full transition ease-in-out duration-700">
+				<form id="income--form" class="absolute inset-0 w-full bg-gray-600 flex items-center justify-center flex-col transform -translate-y-full transition ease-in-out duration-700">
 					<div class="mb-8">
-						<label for="source" class="block text-gray-700 text-sm font-bold mb-2">Source</label>
+						<label for="source" class="block text-gray-200 text-sm font-bold mb-2">Source</label>
 						<input type="text" id="income--form--source" name="source" placeholder="source" data-input="income--source"
 							class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
 					</div>
 
 					<div class="mb-8">
-						<label for="amount" class="block text-gray-700 text-sm font-bold mb-2">Amount</label>
+						<label for="amount" class="block text-gray-200 text-sm font-bold mb-2">Amount</label>
 						<input type="number" id="income--form--amount" name="amount" placeholder="amount" data-input="income--amount"
 							class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
 					</div>
@@ -59,7 +59,7 @@
 							data-section="income" aria-label="Edit/Confirm">✓</button>
 						<button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 w-12 rounded focus:outline-none focus:shadow-outline"
 							data-section="income" aria-label="Remove">X</button>
-						<button class="bg-white hover:bg-gray-200 text-gray-800 font-bold py-1 px-2 m-1 absolute top-0 right-0 rounded focus:outline-none focus:shadow-outline"
+						<button class="bg-gray-200 hover:bg-gray-100 text-gray-800 font-bold py-1 px-2 m-1 absolute top-0 right-0 rounded focus:outline-none focus:shadow-outline"
 							data-action="close" aria-label="Close">ⓧ</button>
 					</div>
 				</form>
@@ -78,15 +78,15 @@
 					<div id="expenses" data-section="expenses"></div>
 				</div>
 
-				<form id="expenses--form" class="absolute inset-0 w-full bg-red-200 flex items-center justify-center flex-col transform -translate-y-full transition ease-in-out duration-700">
+				<form id="expenses--form" class="absolute inset-0 w-full bg-gray-600 flex items-center justify-center flex-col transform -translate-y-full transition ease-in-out duration-700">
 					<div class="mb-8">
-						<label for="source" class="block text-gray-700 text-sm font-bold mb-2">Source</label>
+						<label for="source" class="block text-gray-200 text-sm font-bold mb-2">Source</label>
 						<input type="text" id="expenses--form--source" name="source" placeholder="source" data-input="expenses--source"
 							class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
 					</div>
 
 					<div class="mb-8">
-						<label for="amount" class="block text-gray-700 text-sm font-bold mb-2">Amount</label>
+						<label for="amount" class="block text-gray-200 text-sm font-bold mb-2">Amount</label>
 						<input type="number" id="expenses--form--amount" name="amount" placeholder="amount" data-input="expenses--amount"
 							class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
 					</div>
@@ -96,7 +96,7 @@
 							data-section="expenses" aria-label="Edit/Confirm">✓</button>
 						<button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1 w-12 rounded focus:outline-none focus:shadow-outline"
 							data-section="expenses" aria-label="Remove">X</button>
-						<button class="bg-white hover:bg-gray-200 text-gray-800 font-bold py-1 px-2 m-1 absolute top-0 right-0 rounded focus:outline-none focus:shadow-outline"
+						<button class="bg-gray-200 hover:bg-gray-100 text-gray-800 font-bold py-1 px-2 m-1 absolute top-0 right-0 rounded focus:outline-none focus:shadow-outline"
 							data-action="close" aria-label="Close">ⓧ</button>
 					</div>
 				</form>
@@ -122,10 +122,26 @@
 			</div>
 		</div>
 
-		<div class="container mx-auto my-4 px-4 lg:px-0 flex items-center">
-			<button data-action="import" class="mr-2 bg-gray-900 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded text-base">Import</button>
-			<button data-action="export" class="mr-2 bg-gray-900 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded text-base">Export</button>
-			<textarea id="clipboard" cols="30" rows="1" class="hidden appearance-none border-2 border-gray-400 py-1 px-2 rounded"></textarea>
+		<div class="container mx-auto my-4 px-4 lg:px-0 grid gap-8 grid-cols-1 lg:grid-cols-3">
+			<div class="relative overflow-hidden">
+				<button data-action="settings" class="absolute top-0 left-0 mr-2 bg-gray-700 hover:bg-gray-900 text-white font-bold py-1 px-3 rounded text-base">⚙️</button>
+				<div id="settings" class="flex items-center transform -translate-x-full transition-transform ease-in duration-700">
+					<button data-action="theme" data-theme="light" class="mr-2 bg-gray-900 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded text-base">🔅</button>
+					<select data-change="currency" class="appearance-none cursor-pointer mr-2 bg-gray-900 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded text-base">
+						<option value="€">€</option>
+						<option value="$">$</option>
+						<option value="֏">֏</option>
+					</select>
+					<button data-action="import" class="mr-2 bg-gray-900 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded text-base">Import</button>
+					<button data-action="export" class="mr-2 bg-gray-900 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded text-base">Export</button>
+				</div>
+
+				<div class="w-full px-px">
+					<textarea id="clipboard" class="hidden w-full h-24 mt-4 appearance-none border-2 border-gray-400 py-1 px-2 rounded"></textarea>
+				</div>
+			</div>
+			<div></div>
+			<div></div>
 		</div>
 	</div>
 

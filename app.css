@@ -555,7 +555,7 @@ pre,
 code,
 kbd,
 samp {
-  font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: "Fira Code", monospace;
 }
 
 /**
@@ -6058,7 +6058,7 @@ video {
 }
 
 .font-mono {
-  font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-family: "Fira Code", monospace;
 }
 
 .font-hairline {
@@ -17878,8 +17878,12 @@ video {
   transition-delay: 1000ms;
 }
 
+:root {
+  --currency: '€';
+}
+
 .amount::before {
-  content: '€';
+  content: var(--currency);
   position: absolute;
   left: 0;
   padding-left: .25rem;
@@ -23325,7 +23329,7 @@ video {
   }
 
   .sm\:font-mono {
-    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-family: "Fira Code", monospace;
   }
 
   .sm\:font-hairline {
@@ -40586,7 +40590,7 @@ video {
   }
 
   .md\:font-mono {
-    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-family: "Fira Code", monospace;
   }
 
   .md\:font-hairline {
@@ -57847,7 +57851,7 @@ video {
   }
 
   .lg\:font-mono {
-    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-family: "Fira Code", monospace;
   }
 
   .lg\:font-hairline {
@@ -75108,7 +75112,7 @@ video {
   }
 
   .xl\:font-mono {
-    font-family: Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    font-family: "Fira Code", monospace;
   }
 
   .xl\:font-hairline {

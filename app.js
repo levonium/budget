@@ -84,7 +84,8 @@ const Tables = {
   All() {
     this.Income(),
     this.Expenses(),
-    this.Results()
+    this.Results(),
+    this.setCurrency()
   },
   create(table, data, isResult = false) {
     table.innerText = ''
@@ -92,6 +93,12 @@ const Tables = {
       const row = Row.create(item.source, item.amount, isResult)
       table.appendChild(row)
     })
+  },
+  setCurrency() {
+    const currency = localStorage.getItem('useCurrency') || '€'
+    document.documentElement.style.setProperty('--currency', `'${currency}'`);
+    Array.from(document.querySelector('[data-change="currency"]').options)
+      .find(o => o.value === currency).selected = 'selected'
   }
 }
 
@@ -295,7 +302,7 @@ const Data = {
       textarea.classList.remove('hidden')
       textarea.value = ''
       textarea.focus()
-      textarea.placeholder = 'Paste your data here and click Import'
+      textarea.placeholder = 'Paste previously exported data here and click Import'
       document.querySelector('[data-action="import"]').dataset.import = 'true'
     },
     do() {
@@ -307,11 +314,7 @@ const Data = {
 
         setBudget(budget)
 
-        textarea.value = '✅ Data imported successfully.'
-        setTimeout(() => {
-          textarea.classList.add('hidden')
-          textarea.value = ''
-        }, 2000)
+        textarea.value = '👍 Data import completed.'
       } catch (error) {
         textarea.classList.add('border-red-400')
         textarea.value = error
@@ -321,7 +324,7 @@ const Data = {
     },
     validate(budget) {
       if (!budget) {
-        throw '❌ Oops you need to paste it here to import.'
+        throw '❌ Paste exported data here to import.'
       }
 
       let data
@@ -350,14 +353,8 @@ const Data = {
     const budget = getBudget()
     const textarea = document.getElementById('clipboard')
     textarea.value = JSON.stringify(budget)
-    textarea.select()
-    document.execCommand('copy')
-    textarea.value = '✅ Copied to clipboard!'
     textarea.classList.remove('hidden', 'border-red-400')
-    setTimeout(() => {
-      textarea.classList.add('hidden')
-      textarea.value = ''
-    }, 2000)
+    textarea.select()
   }
 }
 
@@ -409,6 +406,17 @@ document.addEventListener('click', (e) => {
       Form.state.hide(form)
     }
 
+    if (button.dataset.action === 'settings') {
+      const settings = document.getElementById('settings')
+      settings.classList.toggle('-translate-x-full')
+      settings.classList.toggle('ml-12')
+    }
+
+    if (button.dataset.action === 'theme') {
+      document.body.classList.toggle('bg-gray-100')
+      document.body.classList.toggle('bg-gray-800')
+    }
+
     if (button.dataset.action === 'import') {
       button.dataset.import === 'true' ? Data.import.do() : Data.import.prepare()
     }
@@ -416,6 +424,14 @@ document.addEventListener('click', (e) => {
     if (button.dataset.action === 'export') {
       Data.export()
     }
+  }
+})
+
+document.addEventListener('change', (e) => {
+  if (e.target.dataset.change === 'currency') {
+    const currency = e.target.value
+    localStorage.setItem('useCurrency', currency)
+    Tables.setCurrency()
   }
 })
 
