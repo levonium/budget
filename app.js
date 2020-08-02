@@ -1,5 +1,13 @@
+const _$ = id => document.getElementById(id)
+const $ = (sel, wrapper = document) => wrapper.querySelector(sel)
+const $$ = (sel, wrapper = document) => wrapper.querySelectorAll(sel)
 const totalOf = arr => arr.reduce((acc, i) => acc + i.amount, 0)
 const sortByAmount = arr => arr.sort((a, b) => a.amount < b.amount)
+const makeDate = () => {
+  return new Intl.DateTimeFormat('en-UK',
+    { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }
+  ).format(new Date());
+}
 
 const getBudget = () => window.Budget
 const setBudget = budget => {
@@ -43,30 +51,30 @@ const Tables = {
     const data = getBudget()
     const income = data.raw.income
 
-    const cashTable = document.getElementById('income--cash')
+    const cashTable = _$('income--cash')
     cashTable && this.create(cashTable, income.cash)
 
-    const accountsTable = document.getElementById('income--accounts')
+    const accountsTable = _$('income--accounts')
     accountsTable && this.create(accountsTable, sortByAmount(income.accounts))
 
-    const upcomingTable = document.getElementById('income--upcoming')
+    const upcomingTable = _$('income--upcoming')
     upcomingTable && this.create(upcomingTable, sortByAmount(income.upcoming))
   },
   Expenses() {
     const data = getBudget()
     const expenses = data.raw.expenses
-    const table = document.getElementById('expenses')
+    const table = _$('expenses')
     table && this.create(table, sortByAmount(expenses))
   },
   Results() {
     const data = getBudget()
 
-    const expensesTable = document.getElementById('total--expenses')
+    const expensesTable = _$('total--expenses')
     expensesTable && this.create(expensesTable, [
       { source: 'All Expenses' , amount: data.total.expenses }
     ], true)
 
-    const incomesTable = document.getElementById('total--income')
+    const incomesTable = _$('total--income')
     incomesTable && this.create(incomesTable, [
       { source: 'Cash' , amount: data.total.income.cash },
       { source: 'Accounts' , amount: data.total.income.accounts },
@@ -75,7 +83,7 @@ const Tables = {
       { source: 'Total' , amount: data.total.income.total }
     ], true)
 
-    const resultsTable = document.getElementById('result')
+    const resultsTable = _$('result')
     resultsTable && this.create(resultsTable, [
       { source: 'From Current' , amount: data.total.result.fromCurrent },
       { source: 'From Total' , amount: data.total.result.fromTotal }
@@ -97,7 +105,7 @@ const Tables = {
   setCurrency() {
     const currency = localStorage.getItem('useCurrency') || '€'
     document.documentElement.style.setProperty('--currency', `'${currency}'`);
-    Array.from(document.querySelector('[data-change="currency"]').options)
+    Array.from($('[data-change="currency"]').options)
       .find(o => o.value === currency).selected = 'selected'
   }
 }
@@ -195,7 +203,7 @@ const Form = {
   state: {
     show(form) {
       form.classList.remove('-translate-y-full')
-      form.querySelectorAll('input')[0].focus()
+      $$('input', form)[0].focus()
     },
     hide(form) {
       form.classList.add('-translate-y-full')
@@ -203,34 +211,34 @@ const Form = {
     populate(form, dataset) {
       Form.state.show(form)
 
-      const buttons = form.querySelectorAll('button')
+      const buttons = $$('button', form)
       if (buttons[0]) buttons[0].dataset.action = 'change'
       if (buttons[1]) buttons[1].dataset.action = 'remove'
       dataset.addonly ? buttons[1].classList.add('hidden') : buttons[1].classList.remove('hidden')
 
       if (dataset.subsection) {
-        const subsectionInput = form.querySelector(`#${dataset.section}--subsection`)
+        const subsectionInput = $(`#${dataset.section}--subsection`, form)
         if (subsectionInput) subsectionInput.value = dataset.subsection
       }
 
       if (dataset.source) {
-        const sourceInput = form.querySelector(`#${dataset.section}--form--source`)
+        const sourceInput = $(`#${dataset.section}--form--source`, form)
         if (sourceInput) sourceInput.value = dataset.source
       }
 
       if (dataset.amount) {
-        const amountInput = form.querySelector(`#${dataset.section}--form--amount`)
+        const amountInput = $(`#${dataset.section}--form--amount`, form)
         if (amountInput) amountInput.value = dataset.amount
       }
     },
   },
   actions: {
     change(form, type) {
-      const source = form.querySelector(`[data-input="${type}--source"]`).value
-      const amount = parseInt(form.querySelector(`[data-input="${type}--amount"]`).value)
+      const source = $(`[data-input="${type}--source"]`, form).value
+      const amount = parseInt($(`[data-input="${type}--amount"]`, form).value)
 
       if (type === 'income') { // errors
-        const subsection = form.querySelector('#income--subsection').value
+        const subsection = $('#income--subsection', form).value
         Income[subsection].change(source, amount)
       } else {
         Expenses.change(source, amount)
@@ -239,10 +247,10 @@ const Form = {
       Form.state.hide(form)
     },
     remove(form, type) {
-      const source = form.querySelector(`[data-input="${type}--source"]`).value
+      const source = $(`[data-input="${type}--source"]`, form).value
 
       if (type === 'income') { // errors
-        const subsection = form.querySelector('#income--subsection').value
+        const subsection = $('#income--subsection', form).value
         Income[subsection].remove(source)
       } else {
         Expenses.remove(source)
@@ -298,15 +306,15 @@ const Data = {
   },
   import: {
     prepare() {
-      const textarea = document.getElementById('clipboard')
+      const textarea = _$('clipboard')
       textarea.classList.remove('hidden')
       textarea.value = ''
       textarea.focus()
       textarea.placeholder = 'Paste previously exported data here and click Import'
-      document.querySelector('[data-action="import"]').dataset.import = 'true'
+      $('[data-action="import"]').dataset.import = 'true'
     },
     do() {
-      const textarea = document.getElementById('clipboard')
+      const textarea = _$('clipboard')
       textarea.classList.remove('border-red-400')
 
       try {
@@ -320,7 +328,7 @@ const Data = {
         textarea.value = error
         return
       }
-      document.querySelector('[data-action="import"]').dataset.import = 'false'
+      $('[data-action="import"]').dataset.import = 'false'
     },
     validate(budget) {
       if (!budget) {
@@ -335,13 +343,13 @@ const Data = {
         throw '❌ Incorrect Format'
       }
 
-      if (!data.hasOwnProperty('raw') ||
-        !data.hasOwnProperty('total') ||
-        !data.raw.hasOwnProperty('expenses') ||
-        !data.total.hasOwnProperty('income') ||
-        !data.total.hasOwnProperty('expenses') ||
-        !data.total.hasOwnProperty('income') ||
-        !data.total.hasOwnProperty('result')) {
+      if (!data.raw ||
+        !data.total ||
+        !data.raw.expenses ||
+        !data.total.income ||
+        !data.total.expenses ||
+        !data.total.income ||
+        !data.total.result) {
 
         throw '❌ Incorrect Format'
       }
@@ -351,10 +359,25 @@ const Data = {
   },
   export() {
     const budget = getBudget()
-    const textarea = document.getElementById('clipboard')
+    const textarea = _$('clipboard')
     textarea.value = JSON.stringify(budget)
     textarea.classList.remove('hidden', 'border-red-400')
     textarea.select()
+  },
+  delete: {
+    prepare() {
+      const textarea = _$('clipboard')
+      textarea.value = '⚠️ This will delete all your data, if you want to continue, click the ❌ button again.'
+      textarea.classList.remove('hidden', 'border-red-400')
+      $('[data-action="delete"]').dataset.delete = 'true'
+    },
+    do() {
+      localStorage.removeItem('budget')
+      localStorage.removeItem('useLocalBudget')
+      localStorage.removeItem('useCurrency')
+
+      window.location.reload()
+    }
   }
 }
 
@@ -363,6 +386,8 @@ const init = async () => {
   const isInitial = !localStorage.getItem('useLocalBudget')
   Data.calculate(data, isInitial)
   Tables.All()
+
+  _$('date').innerText = makeDate()
 }
 
 document.addEventListener('DOMContentLoaded', () => init())
@@ -376,7 +401,7 @@ document.addEventListener('click', (e) => {
     const addonly = e.target.closest('[data-addOnly]')?.dataset.addonly
 
     const dataset = { section, subsection, source, amount, addonly }
-    const form = document.getElementById(`${section}--form`)
+    const form = _$(`${section}--form`)
     Form.state.populate(form, dataset)
   }
 
@@ -385,19 +410,19 @@ document.addEventListener('click', (e) => {
     const button = e.target
 
     if (button.dataset.action === 'form') {
-      const form = document.getElementById(`${button.dataset.section}--form`)
+      const form = _$(`${button.dataset.section}--form`)
       Form.state.populate(form, button.dataset)
     }
 
     if (button.dataset.action === 'change') {
       const type = button.dataset.section
-      const form = document.getElementById(`${type}--form`)
+      const form = _$(`${type}--form`)
       Form.actions.change(form, type)
     }
 
     if (button.dataset.action === 'remove') {
       const type = button.dataset.section
-      const form = document.getElementById(`${type}--form`)
+      const form = _$(`${type}--form`)
       Form.actions.remove(form, type)
     }
 
@@ -407,14 +432,19 @@ document.addEventListener('click', (e) => {
     }
 
     if (button.dataset.action === 'settings') {
-      const settings = document.getElementById('settings')
+      const settings = _$('settings')
       settings.classList.toggle('-translate-x-full')
       settings.classList.toggle('ml-12')
+
+      const textarea = _$('clipboard')
+      if (!textarea.classList.contains('hidden')) {
+        textarea.classList.add('hidden')
+      }
     }
 
     if (button.dataset.action === 'theme') {
       document.body.classList.toggle('bg-gray-100')
-      document.body.classList.toggle('bg-gray-800')
+      document.body.classList.toggle('dark:bg-gray-800')
     }
 
     if (button.dataset.action === 'import') {
@@ -423,6 +453,10 @@ document.addEventListener('click', (e) => {
 
     if (button.dataset.action === 'export') {
       Data.export()
+    }
+
+    if (button.dataset.action === 'delete') {
+      button.dataset.delete === 'true' ? Data.delete.do() : Data.delete.prepare()
     }
   }
 })
@@ -435,4 +469,4 @@ document.addEventListener('change', (e) => {
   }
 })
 
-document.querySelectorAll('form').forEach(form => form.addEventListener('keydown', (e) => e.keyCode === 27 && Form.state.hide(form)))
+$$('form').forEach(form => form.addEventListener('keydown', (e) => e.keyCode === 27 && Form.state.hide(form)))

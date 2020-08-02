@@ -7,7 +7,7 @@
 	<link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
 	<link rel="stylesheet" href="app.css">
 </head>
-<body class="m-0 p-0 antialiased w-full h-full bg-gray-100">
+<body class="m-0 p-0 antialiased w-full h-full bg-gray-100 dark:bg-gray-800 transition-colors duration-500 ease-in-out">
 	<div class="page my-8">
 		<div class="container mx-auto my-4 px-4 lg:px-0 grid gap-8 grid-cols-1 lg:grid-cols-3">
 
@@ -122,7 +122,7 @@
 			</div>
 		</div>
 
-		<div class="container mx-auto my-4 px-4 lg:px-0 grid gap-8 grid-cols-1 lg:grid-cols-3">
+		<div class="container mx-auto my-4 px-4 lg:px-0 grid gap-8 grid-cols-1 lg:grid-cols-3 items-baseline">
 			<div class="relative overflow-hidden">
 				<button data-action="settings" class="absolute top-0 left-0 mr-2 bg-gray-700 hover:bg-gray-900 text-white font-bold py-1 px-3 rounded text-base">⚙️</button>
 				<div id="settings" class="flex items-center transform -translate-x-full transition-transform ease-in duration-700">
@@ -134,6 +134,7 @@
 					</select>
 					<button data-action="import" class="mr-2 bg-gray-900 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded text-base">Import</button>
 					<button data-action="export" class="mr-2 bg-gray-900 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded text-base">Export</button>
+					<button data-action="delete" class="mr-2 bg-gray-900 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded text-base">❌</button>
 				</div>
 
 				<div class="w-full px-px">
@@ -141,7 +142,11 @@
 				</div>
 			</div>
 			<div></div>
-			<div></div>
+			<div>
+				<p class="text-right">
+					<span id="date" class="bg-gray-700 text-white font-bold py-1 px-4 rounded text-base"></span>
+				</p>
+			</div>
 		</div>
 	</div>
 
