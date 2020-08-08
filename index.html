@@ -3,9 +3,20 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Budget</title>
-	<link rel="shortcut icon" href="favicon.svg" type="image/x-icon">
-	<link rel="stylesheet" href="app.css">
+	<title>BudgetApp</title>
+
+	<link rel="shortcut icon" href="/assets/icons/favicon.svg" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/assets/icons/icon-152.png">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-title" content="BudgetApp">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+	<link rel="canonical" href="https://budget.levon.dev">
+	<meta name="description" content="Budget App, kind of.">
+
+	<link rel="stylesheet" href="assets/app.css">
+	<link rel="manifest" href="/manifest.json">
+	<meta name="theme-color" content="#efa023">
 </head>
 <body class="m-0 p-0 antialiased w-full h-full bg-gray-100 dark:bg-gray-800 transition-colors duration-500 ease-in-out">
 	<div class="page my-8">
@@ -124,7 +135,9 @@
 
 		<div class="container mx-auto my-4 px-4 lg:px-0 grid gap-8 grid-cols-1 lg:grid-cols-3 items-baseline">
 			<div class="relative overflow-hidden">
-				<button data-action="settings" class="absolute top-0 left-0 mr-2 bg-gray-700 hover:bg-gray-900 text-white font-bold py-1 px-3 rounded text-base">⚙️</button>
+				<button data-action="settings"
+					class="absolute top-0 left-0 mr-2 bg-gray-700 hover:bg-gray-900 focus:outline-none text-white font-bold py-1 px-3 rounded text-base">⚙️</button>
+
 				<div id="settings" class="flex items-center transform -translate-x-full transition-transform ease-in duration-700">
 					<button data-action="theme" data-theme="light" class="mr-2 bg-gray-900 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded text-base">🔅</button>
 					<select data-change="currency" class="appearance-none cursor-pointer mr-2 bg-gray-900 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded text-base">
@@ -150,6 +163,13 @@
 		</div>
 	</div>
 
-	<script src="app.js"></script>
+	<script src="assets/app.js"></script>
+	<script>
+		if ('serviceWorker' in navigator) {
+			window.addEventListener('load', () => {
+				navigator.serviceWorker.register('/sw.js').then(reg => console.log('[SW registered]', reg))
+			})
+		}
+	</script>
 </body>
 </html>

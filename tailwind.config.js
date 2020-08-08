@@ -3,7 +3,7 @@ module.exports = {
     enabled: true,
     content: [
       './index.html',
-      './app.js',
+      './src/app.js',
     ]
   },
   theme: {

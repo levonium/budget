@@ -6,7 +6,7 @@ const sortByAmount = arr => arr.sort((a, b) => a.amount < b.amount)
 const makeDate = () => {
   return new Intl.DateTimeFormat('en-UK',
     { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }
-  ).format(new Date());
+  ).format(new Date())
 }
 
 const getBudget = () => window.Budget
@@ -272,7 +272,7 @@ const Data = {
     return JSON.parse(localStorage.getItem('budget'))
   },
   async fetch() {
-    const res = await fetch('data.json')
+    const res = await fetch('assets/data.json')
     const json = await res.json()
     return json
   },
