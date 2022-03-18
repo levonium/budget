@@ -3,11 +3,6 @@ const $ = (sel, wrapper = document) => wrapper.querySelector(sel)
 const $$ = (sel, wrapper = document) => wrapper.querySelectorAll(sel)
 const totalOf = arr => arr.reduce((acc, i) => acc + i.amount, 0)
 const sortByAmount = arr => arr.sort((a, b) => a.amount < b.amount)
-const makeDate = () => {
-  return new Intl.DateTimeFormat('en-UK',
-    { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }
-  ).format(new Date())
-}
 
 const getBudget = () => window.Budget
 const setBudget = budget => {
@@ -28,7 +23,8 @@ const Row = {
   },
   source(source, isResult) {
     const span = document.createElement('span')
-    span.classList.add('source', 'col-span-3', 'h-8', 'py-1', 'px-2', 'border', 'border-gray-400', 'rounded-l', 'font-bold', 'uppercase', 'text-sm', 'text-gray-700', 'flex', 'items-center')
+    span.classList.add('source', 'col-span-3', 'h-8', 'py-1', 'px-2', 'border', 'border-gray-200', 'rounded-l', 'font-bold', 'uppercase', 'text-sm', 'text-gray-700', 'flex', 'items-center')
+    span.setAttribute('role', 'button')
     if (!isResult) {
       span.classList.add('editable', 'cursor-pointer',)
     }
@@ -37,7 +33,7 @@ const Row = {
   },
   amount(amount, isResult) {
     const span = document.createElement('span')
-    span.classList.add('amount', 'font-mono', 'col-span-2', 'relative', 'h-8', 'py-1', 'px-2', 'border', 'border-gray-400', 'rounded-r', 'text-right', 'font-bold', 'flex', 'items-center', 'justify-end')
+    span.classList.add('amount', 'font-mono', 'col-span-2', 'relative', 'h-8', 'py-1', 'px-2', 'border', 'border-gray-200', 'rounded-r', 'text-right', 'font-bold', 'flex', 'items-center', 'justify-end')
     if (!isResult) {
       span.classList.add('editable', 'cursor-pointer',)
     }
@@ -126,7 +122,7 @@ const Income = {
     },
     add(source, amount) {
       const data = getBudget()
-      data.raw.income.accounts.push({ source, amount })
+      data.raw.income.accounts.push({ source: source, amount: amount || 0 })
       setBudget(data)
     },
     edit(source, amount) {
@@ -152,7 +148,7 @@ const Income = {
     },
     add(source, amount) {
       const data = getBudget()
-      data.raw.income.upcoming.push({ source, amount })
+      data.raw.income.upcoming.push({ source: source, amount: amount || 0 })
       setBudget(data)
     },
     edit(source, amount) {
@@ -180,7 +176,7 @@ const Expenses = {
   },
   add(source, amount) {
     const data = getBudget()
-    data.raw.expenses.push({ source, amount })
+    data.raw.expenses.push({ source: source, amount: amount || 0 })
     setBudget(data)
   },
   edit(source, amount) {
@@ -367,7 +363,7 @@ const Data = {
   delete: {
     prepare() {
       const textarea = _$('clipboard')
-      textarea.value = '⚠️ This will delete all your data, if you want to continue, click the ❌ button again.'
+      textarea.value = '⚠️ This will delete all your data, if you want to continue, click the "Delete" button again.'
       textarea.classList.remove('hidden', 'border-red-400')
       $('[data-action="delete"]').dataset.delete = 'true'
     },
@@ -386,8 +382,6 @@ const init = async () => {
   const isInitial = !localStorage.getItem('useLocalBudget')
   Data.calculate(data, isInitial)
   Tables.All()
-
-  _$('date').innerText = makeDate()
 }
 
 document.addEventListener('DOMContentLoaded', () => init())
@@ -463,10 +457,9 @@ document.addEventListener('click', (e) => {
 
 document.addEventListener('change', (e) => {
   if (e.target.dataset.change === 'currency') {
-    const currency = e.target.value
-    localStorage.setItem('useCurrency', currency)
+    localStorage.setItem('useCurrency', e.target.value)
     Tables.setCurrency()
   }
 })
 
-$$('form').forEach(form => form.addEventListener('keydown', (e) => e.keyCode === 27 && Form.state.hide(form)))
+$$('form').forEach(form => form.addEventListener('keydown', (e) => e.code === 'Escape' && Form.state.hide(form)))

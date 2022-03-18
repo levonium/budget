@@ -3,12 +3,12 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>BudgetApp</title>
+	<title>Budget App, kind of.</title>
 
 	<link rel="shortcut icon" href="/assets/icons/favicon.svg" type="image/x-icon">
 	<link rel="apple-touch-icon" href="/assets/icons/icon-152.png">
 	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-title" content="BudgetApp">
+	<meta name="apple-mobile-web-app-title" content="Budget App, kind of.">
 	<meta name="apple-mobile-web-app-status-bar-style" content="black">
 
 	<link rel="canonical" href="https://budget.levon.dev">
@@ -76,7 +76,7 @@
 				</form>
 			</div>
 
-			<div class="relative overflow-hidden bg-orange-400 rounded shadow p-4" data-column="expenses">
+			<div class="relative overflow-hidden bg-orange-300 rounded shadow p-4" data-column="expenses">
 				<h2 class="text-3xl font-bold mb-8">Expenses</h2>
 
 				<div class="expenses mb-8">
@@ -133,12 +133,12 @@
 			</div>
 		</div>
 
-		<div class="container mx-auto my-4 px-4 lg:px-0 grid gap-8 grid-cols-1 lg:grid-cols-3 items-baseline">
+		<div class="container mx-auto my-4 px-4 lg:px-0">
 			<div class="relative overflow-hidden">
 				<button data-action="settings"
 					class="absolute top-0 left-0 mr-2 bg-gray-700 hover:bg-gray-900 focus:outline-none text-white font-bold py-1 px-3 rounded text-base">⚙️</button>
 
-				<div id="settings" class="flex items-center transform -translate-x-full transition-transform ease-in duration-700">
+				<div id="settings" class="flex items-center pl-2 transform -translate-x-full transition-transform ease-in-out duration-700">
 					<button data-action="theme" data-theme="light" class="mr-2 bg-gray-900 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded text-base">🔅</button>
 					<select data-change="currency" class="appearance-none cursor-pointer mr-2 bg-gray-900 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded text-base">
 						<option value="€">€</option>
@@ -147,18 +147,12 @@
 					</select>
 					<button data-action="import" class="mr-2 bg-gray-900 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded text-base">Import</button>
 					<button data-action="export" class="mr-2 bg-gray-900 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded text-base">Export</button>
-					<button data-action="delete" class="mr-2 bg-gray-900 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded text-base">❌</button>
+					<button data-action="delete" class="mr-2 bg-gray-900 hover:bg-gray-700 text-white font-bold py-1 px-4 rounded text-base">Delete</button>
 				</div>
 
 				<div class="w-full px-px">
 					<textarea id="clipboard" class="hidden w-full h-24 mt-4 appearance-none border-2 border-gray-400 py-1 px-2 rounded"></textarea>
 				</div>
-			</div>
-			<div></div>
-			<div>
-				<p class="text-right">
-					<span id="date" class="bg-gray-700 text-white font-bold py-1 px-4 rounded text-base"></span>
-				</p>
 			</div>
 		</div>
 	</div>
